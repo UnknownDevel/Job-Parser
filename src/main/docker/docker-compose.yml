@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  app:
+    image: 'parser-docker'
+    build:
+      context: .
+    container_name: parser
+    depends_on:
+      - db
+    environment:
+      - spring.datasource.url = jdbc:postgres://db:5432/parser
+      - spring.datasource.username = postgres
+      - spring.datasource.password = piis31415
+      - spring.hibernate.ddl-auto = upgrade
+
+  db:
+    image: 'postgres:16-alpine'
+    container_name: db
+    environment:
+      - postgres_user=postgres
+      - postgres_password=piis31415
